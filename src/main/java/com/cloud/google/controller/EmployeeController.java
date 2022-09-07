@@ -29,54 +29,49 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+	@Autowired
+	private EmployeeService employeeService;
 
-    @PostMapping(value = "/employee")
-    public Mono<?> addEmployee(
-    		@Valid @RequestBody EmployeeDto request) {
-				return employeeService.addEmployee(Mono.just(request));
-    }
-    
-    @PutMapping(value = "/employee/{id}")
-    public Mono<?> updateEmployee(
-    	        @PathVariable(value = "id") String empId, @Valid @RequestBody EmployeeDto request) {
-				return employeeService.updateEmployee(empId,Mono.just(request));
-    }  
-    
-    
-    @PutMapping(value = "/employee/{id}/educations")
-    public Mono<?> updateEmployeeEducation(
-    	        @PathVariable(value = "id") String empId, @RequestBody List<EmployeeEducationDto> request) {
-				return employeeService.updateEmployeeEducationDeatails(empId,Flux.fromIterable(request));
-    }      
-    
-    @GetMapping(value = "/employee/{id}")
-    public Mono<?> getEmployee(
-    	        @PathVariable(value = "id") String empId) {
-				return employeeService.searchEmployee(empId);
-    }   
-    
-    @DeleteMapping(value = "/employee/{id}")
-    public Mono<?> deleteEmployee(
-    	        @PathVariable(value = "id") String empId) {
-    	return employeeService.deleteEmployee(empId);
-    }
-    
-    @GetMapping(value = "/employees")
-    public Mono<?> getEmployees() {
-    	
-			return employeeService.getAllemployees();
-    }  
-    @PatchMapping(value = "/employee/{id}/certificate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<?> uploadFile(@PathVariable(value = "id") String empId, @RequestParam("files")  MultipartFile  filePart) {
-     
-    	return employeeService.uploadCertificate(empId, filePart);
-    }
-    
-    @DeleteMapping(value = "/employee/{id}/certificate")
-    public Mono<?> deleteFile(
-    	        @PathVariable(value = "id") String empId) {
-    	return employeeService.deleteCertificate(empId);
-    }
+	@PostMapping(value = "/employee")
+	public Mono<?> addEmployee(@Valid @RequestBody EmployeeDto request) {
+		return employeeService.addEmployee(Mono.just(request));
+	}
+
+	@PutMapping(value = "/employee/{id}")
+	public Mono<?> updateEmployee(@PathVariable(value = "id") String empId, @Valid @RequestBody EmployeeDto request) {
+		return employeeService.updateEmployee(empId, Mono.just(request));
+	}
+
+	@PutMapping(value = "/employee/{id}/educations")
+	public Mono<?> updateEmployeeEducation(@PathVariable(value = "id") String empId,
+			@RequestBody List<EmployeeEducationDto> request) {
+		return employeeService.updateEmployeeEducationDeatails(empId, Flux.fromIterable(request));
+	}
+
+	@GetMapping(value = "/employee/{id}")
+	public Mono<?> getEmployee(@PathVariable(value = "id") String empId) {
+		return employeeService.searchEmployee(empId);
+	}
+
+	@DeleteMapping(value = "/employee/{id}")
+	public Mono<?> deleteEmployee(@PathVariable(value = "id") String empId) {
+		return employeeService.deleteEmployee(empId);
+	}
+
+	@GetMapping(value = "/employees")
+	public Mono<?> getEmployees() {
+
+		return employeeService.getAllemployees();
+	}
+
+	@PatchMapping(value = "/employee/{id}/certificate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Mono<?> uploadFile(@PathVariable(value = "id") String empId, @RequestParam("files") MultipartFile filePart) {
+
+		return employeeService.uploadCertificate(empId, filePart);
+	}
+
+	@DeleteMapping(value = "/employee/{id}/certificate")
+	public Mono<?> deleteFile(@PathVariable(value = "id") String empId) {
+		return employeeService.deleteCertificate(empId);
+	}
 }

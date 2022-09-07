@@ -71,7 +71,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 
 		});
-
 	}
 
 	@Override
@@ -99,7 +98,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 				log.info("Exception  {}", e.getLocalizedMessage());
 				return Mono.error(new RestApiException(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST));
 			}
-
 		});
 	}
 
@@ -178,21 +176,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Mono<?> uploadCertificate(String empId, MultipartFile filePart) {
 
-		Optional<Employee> emp = employeeRepository.getEmployee(empId);
-		emp.orElseThrow(() -> new RestApiException("Employee Not found", HttpStatus.BAD_REQUEST));
+//		Optional<Employee> emp = employeeRepository.getEmployee(empId);
+//		emp.orElseThrow(() -> new RestApiException("Employee Not found", HttpStatus.BAD_REQUEST));
 
 		String imageType = storage.checkFileType(filePart.getOriginalFilename());
 		if (StringUtils.isEmpty(imageType)) {
 			return Mono.error(new RestApiException("Invalid file.", HttpStatus.BAD_REQUEST));
 		}
-		if (!StringUtils.isEmpty(emp.get().getEmpCertificate())) {
-			storage.deleteFile(emp.get().getEmpCertificate());
-		}
+//		if (!StringUtils.isEmpty(emp.get().getEmpCertificate())) {
+//			storage.deleteFile(emp.get().getEmpCertificate());
+//		}
 
 		return storage.uploadFiles(filePart, imageType).flatMap(urlInfo -> {
-
-			emp.get().setEmpCertificate(storage.getBucketAddress().concat(filePart.getOriginalFilename()));
-			employeeRepository.save(emp.get());
+			System.out.println("file name and bucket address :: "
+					+ storage.getBucketAddress().concat(filePart.getOriginalFilename()));
+//			emp.get().setEmpCertificate(storage.getBucketAddress().concat(filePart.getOriginalFilename()));
+//			employeeRepository.save(emp.get());
 			return Mono.just(EmployeeResponse.builder().statusCode(HttpStatus.OK.value())
 					.message(storage.getBucketAddress().concat(filePart.getOriginalFilename())).build());
 		});
@@ -202,14 +201,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Mono<?> deleteCertificate(String id) {
 
-		Optional<Employee> emp = employeeRepository.getEmployee(id);
-		emp.orElseThrow(() -> new RestApiException("Employee Not found", HttpStatus.BAD_REQUEST));
+//		Optional<Employee> emp = employeeRepository.getEmployee(id);
+//		emp.orElseThrow(() -> new RestApiException("Employee Not found", HttpStatus.BAD_REQUEST));
 
-		emp.get().setEmpCertificate("");
-		employeeRepository.save(emp.get());
+//		emp.get().setEmpCertificate("");
+//		employeeRepository.save(emp.get());
 		return Mono.just(EmployeeResponse.builder()
 
-				.statusCode(HttpStatus.OK.value()).message(storage.deleteFile(emp.get().getEmpCertificate())).build());
+				.statusCode(HttpStatus.OK.value()).message(storage.deleteFile("bulb.jpg")).build());
 	}
 
 }

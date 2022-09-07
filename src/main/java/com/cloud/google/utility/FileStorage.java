@@ -31,10 +31,10 @@ public class FileStorage {
 	@Autowired
 	private Storage storage;
 	private Bucket bucket;
-	private final String bucketName = "hello-buk-storage";
+	private final String bucketName = "bucket-poc-gcp";
 	private final String subdirectory = "images";
 	
-	private final String bucketAddress="https://storage.cloud.google.com/hello-buk-storage/images/";
+	private final String bucketAddress="https://storage.cloud.google.com/bucket-poc-gcp/images/";
 	
 	private void createBucket(String bucketName) {
 		bucket = storage.get(bucketName.toLowerCase());

@@ -24,7 +24,7 @@ public class AutoConfiguration {
 	@Autowired
 	private TableCreator spannerTemplateManager;
 
-	@Bean
+//	@Bean
 	ApplicationRunner applicationRunner() {
 		return (args) -> {
 			spannerTemplateManager.createTables();
