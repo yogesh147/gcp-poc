@@ -11,6 +11,7 @@ public class GoogleApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GoogleApplication.class, args);
+		System.lineSeparator();
 		log.info("--------------- GCP POC APP START --------------");
 		System.out.println("----------------------------------------------------");
 	}

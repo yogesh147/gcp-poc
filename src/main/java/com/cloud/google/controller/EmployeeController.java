@@ -26,7 +26,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("company")
+@RequestMapping("api")
 public class EmployeeController {
 
     @Autowired

@@ -7,5 +7,5 @@ spring:
         location: classpath:gcp.json
       project-id: gcp-poc-361706
       spanner:
-        instance-id: gcp-poc
+        instance-id: test-instance
         database: gcp       

@@ -30,7 +30,6 @@ public class EmployeeDto {
 	
 	
 	@JsonProperty(value = "empCertificate")
-	@JsonIgnore
 	private String empCertificate;	
 	
 	@JsonProperty(value = "name")
