@@ -1,5 +1,7 @@
 package com.cloud.google.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -43,8 +45,8 @@ public class EmployeeDto {
 	@JsonProperty(value = "mobile")
 	private Long empMobile;
 
-//	@JsonProperty(value = "qualifications")
-//	private List<EmployeeEducationDto> educations;
+	@JsonProperty(value = "qualifications")
+	private List<EmployeeEducationDto> educations;
 	
 	@JsonIgnore
 	public void setEmpId(String empId)

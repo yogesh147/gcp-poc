@@ -4,8 +4,8 @@ spring:
   cloud:
     gcp:  
       credentials:
-        location: gcp.json
+        location: classpath:gcp.json
       project-id: gcp-poc-361706
       spanner:
         instance-id: gcp-poc
-        database: gcp    
+        database: gcp       
