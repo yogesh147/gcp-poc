@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gcp-poc
+  cloud:
+    gcp:  
+      credentials:
+        location: gcp.json
+      project-id: gcp-poc-361706
+      spanner:
+        instance-id: gcp-poc
+        database: gcp    
