@@ -2,7 +2,7 @@
 
 <h1>Application properties comments</h1> 
 
-#springdoc.api-docs.path = /v3/api-docs
+#springdoc.api-docs.path = /v3/api-docs /n
 #springdoc.swagger-ui.path=/redoc
 #logging.level.web=debug
 #spring.http.log-request-details=true
