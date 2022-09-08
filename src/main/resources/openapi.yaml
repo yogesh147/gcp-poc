@@ -1,0 +1,214 @@
+openapi: 3.0.1
+info:
+  title: Employees API
+  description: Employees Information
+  version: '2.0'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: API Support
+    email: apiteam@swagger.io
+    url: https://github.com/Redocly/redoc
+  x-logo:
+    url: "https://storage.googleapis.com/bucket-poc-gcp/bulg.png"    
+    backgroundColor: '#F0F0F0'
+    altText: Employee Portal
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'  
+servers:
+  - url: http://localhost:8080
+    description: Employee Dashboard
+paths:
+  /employee/{id}:
+    get:
+      tags:
+        - employee-controller
+      operationId: getEmployee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+    put:
+      tags:
+        - employee-controller
+      operationId: updateEmployee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+    delete:
+      tags:
+        - employee-controller
+      operationId: deleteEmployee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+  /employee/{id}/education:
+    put:
+      tags:
+        - employee-controller
+      operationId: updateEmployeeEducation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmployeeEducationDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+  /employee:
+    get:
+      tags:
+        - employee-controller
+      operationId: getEmployees
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+    post:
+      tags:
+        - employee-controller
+      operationId: addEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+  /employee/{id}/certificate:
+    delete:
+      tags:
+        - employee-controller
+      operationId: deleteFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+    patch:
+      tags:
+        - employee-controller
+      operationId: uploadFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - files
+              type: object
+              properties:
+                files:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonoObject'
+components:
+  schemas:
+    EmployeeDto:
+      required:
+        - name
+      type: object
+      properties:
+        empId:
+          type: string
+        empCertificate:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        mobile:
+          type: integer
+          format: int64
+        qualifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeEducationDto'
+    EmployeeEducationDto:
+      type: object
+      properties:
+        eduId:
+          type: string
+        qualification:
+          type: string
+        grade:
+          type: string
+    MonoObject:
+      type: object
+
